@@ -8,21 +8,20 @@ const state = proxy({
   },
   inc: () => {
     state.count++;
+  },
+  onClick: async () => {
+    await saveInfo();
+    state.inc();
   }
 });
 
 export default function App() {
   const snap = useSnapshot(state);
 
-  async function onClick() {
-    await saveInfo();
-    state.inc();
-  }
-
   return (
     <>
       <h1>Count: {snap.count}</h1>
-      <button onClick={onClick}>+ 1</button>
+      <button onClick={snap.onClick}>+ 1</button>
     </>
   );
 }
